@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@model List<Netflix2.Models.Phim>
+<div class="banner">
+    <audio autoplay loop class="banner-video">
+        <source src="~/Content/Music/Arcane.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+    <video autoplay muted loop class="banner-video">
+        <source src="~/Content/BannerVid/Arcane.mp4" type="video/mp4">
+        <!-- Các nguồn video khác (nếu cần) -->
+    </video>
+    <h1>Unlimited movies, TV shows, and more.</h1>
+    <p>Watch anywhere. Cancel anytime.</p>
+    <button class="button">Watch Free For 30 Days</button>
+</div>
+<div class="h2Phim">
+    <h2>Phim Nổi Bật</h2>
+</div>
+<div class="col-sm-8 text-left">
+    @foreach (var phim in Model)
+    {
+        {
+            <div class="card">
+                <div class="card-image">
+                    <img src="~/Content/PhimIMG/@phim.HinhMinhHoa" alt="Video Image">
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">@phim.TenPhim</h2>
+                    <p class="card-category">@phim.TheLoai</p>
+                </div>
+                <button class="card-button">
+                    <a href="@Url.Action("ChiTietPhim", "Home", new { id =  phim.IdPhim})">Xem Ngay</a>
+                </button>
+            </div>
+        }
+    }
+</div>

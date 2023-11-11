@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietPhim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Netflix2.Models.Phim
+<style>
+    .movie-details {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px; /* Để tránh che phủ phần nội dung */
+        align-items:center
+    }
+
+    .movie-poster {
+        flex: 0 0 30%;
+        margin-left: 20%;
+    }
+
+        .movie-poster img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+    .movie-info {
+        flex: 0 0 70%;
+        margin-left:10%
+    }
+
+    .movie-title {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .movie-description {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+    .khungDetail{
+        width:80%;
+        height:auto;
+        align-items:center
+    }
+
+    .watch-button {
+        background-color: #e50914;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 10px;
+        text-decoration: none;
+    }
+
+        .watch-button:hover {
+            background-color: #ff0a16;
+        }
+
+</style>
+<div class="khungDetail">
+    <div class="movie-details">
+        <div class="movie-poster">
+            <img src="~/Content/PhimIMG/@Model.HinhMinhHoa" alt="Movie Poster">
+        </div>
+        <div class="movie-info">
+            <div class="movie-title">@Model.TenPhim</div>
+            <div class="movie-description">
+                @Model.ChiTietPhim
+            </div>
+            <a class="watch-button" id="linkwhite" href="@Url.Action("XemPhim", "Home", new { id = Model.IdPhim })">Xem Ngay</a>
+        </div>
+    </div>
+</div>

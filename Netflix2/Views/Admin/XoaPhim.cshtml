@@ -1,0 +1,173 @@
+﻿@model Netflix2.Models.Phim
+
+@{
+    ViewBag.Title = "XoaPhim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    /* CSS */
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #fff; /* Màu chữ đen */
+    }
+
+    h3 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #e50914; /* Màu đỏ của Netflix */
+    }
+
+    dl.dl-horizontal {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin: 0;
+    }
+
+    .form-actions.no-color {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn-default {
+        background-color: #e50914; /* Màu đỏ của Netflix */
+        color: #fff;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+        .btn-default:hover {
+            background-color: #ff3239; /* Màu đỏ đậm khi di chuột qua */
+        }
+
+    .back-link {
+        display: inline-block;
+        text-align: center;
+    }
+
+        .back-link a {
+            color: #e50914; /* Màu đỏ của Netflix cho liên kết */
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+            .back-link a:hover {
+                text-decoration: underline; /* Hiệu ứng gạch chân khi di chuột qua liên kết */
+            }
+</style>
+<div>
+    <h2>Xác Nhận Xóa Phim?</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TieuDe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieuDe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NamSanXuat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamSanXuat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TheLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TheLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ThoiLuong)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ThoiLuong)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.URLPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.URLPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HinhMinhHoa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HinhMinhHoa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChiTietPhim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChiTietPhim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DienVien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienVien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaoDien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaoDien)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("XacNhanXoaPhim", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(Model => Model.IdPhim)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </div>
+        <div class="back-link">
+            @Html.ActionLink("  Back to List", "QuanLyPhim")
+        </div>
+    }
+</div>

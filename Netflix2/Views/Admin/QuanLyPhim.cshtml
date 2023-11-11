@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Netflix2.Models.Phim>
+
+@{
+    ViewBag.Title = "QuanLyPhim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: white; /* Màu chữ đen */
+    }
+
+    p {
+        margin-bottom: 20px;
+        margin-left:0px
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th {
+            background-color: #e50914; /* Màu đỏ của Netflix */
+            color: #fff; /* Màu chữ trắng */
+            font-weight: bold;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table td {
+            border: 1px solid #ccc; /* Đường viền màu xám */
+            padding: 10px;
+            color:black
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2; /* Màu nền xám nhạt cho hàng chẵn */
+        }
+
+        .table tr:nth-child(odd) {
+            background-color: #fff; /* Màu nền trắng cho hàng lẻ */
+        }
+
+        .table a {
+            color: #e50914; /* Màu đỏ của Netflix cho liên kết */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+            .table a:hover {
+                text-decoration: underline; /* Hiệu ứng gạch chân khi di chuột qua liên kết */
+            }
+</style>
+
+
+<div>
+    <div>
+        <h2>Quản Lý Phim</h2>
+        <p>
+            @Html.ActionLink("Thêm Phim", "AddPhim")
+        </p>
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TieuDe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenPhim)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TieuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhim)
+                </td>
+                <td>
+                <td>
+                    @Html.ActionLink("Edit", "SuaPhim", new { id = item.IdPhim }) |
+                    @Html.ActionLink("Delete", "XoaPhim", new { id = item.IdPhim })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

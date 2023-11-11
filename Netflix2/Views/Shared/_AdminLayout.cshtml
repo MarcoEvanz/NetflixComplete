@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <link rel="stylesheet" href="~/Content/AdminCSS/Admin.css" />
+</head>
+<body>
+    <div class="headerAdmin">
+        <div class="logo"><a class="logo" style="color: #e50914; font-size: 36px; font-weight: 800; margin-left: 20px;" href="~/Home/TrangChu">Netflix</a></div>
+        <div class="nav">
+            <a>@Html.ActionLink("Quản Lý Phim", "QuanLyPhim", "Admin")</a>
+            <a>@Html.ActionLink("Quản Lý User", "QuanLyUser", "Admin")</a>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="footer-links">
+            <a href="#">Questions?</a>
+            <a href="#">Help Center</a>
+            <a href="#">Terms of Use</a>
+            <a href="https://help.netflix.com/legal/privacy">Privacy</a>
+            <a href="#">Cookie Preferences</a>
+            <a href="#">Corporate Information</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Speed Test</a>
+            <a href="#">Legal Notices</a>
+            <hr />
+            <a href="#">Only on Netflix</a>
+            <p>&copy; 2023 Netflix. All Rights Reserved</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

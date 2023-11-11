@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .body-regis {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('@Url.Content("~/Content/Background/NBackGround.jpg")');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .Regis-container {
+        align-items: center;
+    }
+
+    .Regis-box {
+        width: 300px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .headerRegis {
+        margin-bottom: 20px;
+    }
+
+
+
+    .inputRegis {
+        margin: 10px 0;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        background-color: #333;
+        color: #fff;
+        width: 93%;
+    }
+
+    .signup-button{
+        background-color: #e50914;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+        .signup-button:hover {
+            background-color: #ff0a16;
+        }
+
+
+    .red-title {
+        color: #e50914; /* Màu đỏ */
+        font-size: 24px; /* Kích thước phông chữ */
+        text-align: center; /* Căn giữa ngang */
+        margin-top: 10px; /* Khoảng cách phía trên */
+    }
+
+    .imgDangKy {
+        margin-top: 10px;
+        max-width: 100px;
+    }
+
+    .signup-form {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+    }
+    .terms {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .pDetail {
+        text-decoration: none;
+        color: #fff;
+    }
+
+        .pDetail:hover {
+            text-decoration: underline;
+        }
+</style>
+<div class="body-regis">
+    <div class="Regis-container">
+        <div class="Regis-box">
+            <div class="headerRegis">
+                <img class="imgDangKy" src="~/Content/LogoIMG/NetflixLogo.png" alt="Netflix Logo">
+            </div>
+            <h2 class="red-title">@ViewBag.ThongBao</h2>
+            @using (Html.BeginForm("DangKy", "NguoiDung"))
+            {
+                @Html.ValidationSummary(true)
+                <div class="signup-form">
+                    <h1>Đăng ký ngay!</h1>
+                    <form>
+                        <div>
+                            @Html.TextBox("HoTenKH", null, new
+                            {
+                            @class = "inputRegis",
+                            @id = "HoTenKH",
+                            required = "required",
+                            @placeholder = "Họ Và Tên"
+                            })
+                        </div>
+                        <div>
+                            @Html.TextBox("TenDangNhap", null, new
+                            {
+                            @class = "inputRegis",
+                            @id = "TenDangNhap",
+                            required = "required",
+                            @placeholder = "Tên Đăng Nhập"
+                            })
+                        </div>
+                        <div>
+                            @Html.TextBox("MatKhau", null, new
+                            {
+                            @class = "inputRegis",
+                            @id = "MatKhau",
+                            required = "required",
+                            type = "password",
+                            @placeholder = "Mật Khẩu"
+                            })
+                        </div>
+                        <div>
+                            @Html.TextBox("Email", null, new
+                            {
+                            @class = "inputRegis",
+                            @id = "Email",
+                            type = "email",
+                            required = "required",
+                            @placeholder = "Email"
+                            })
+                        </div>
+                        <button type="submit" class="signup-button">Đăng ký</button>
+                    </form>
+                    <p class="terms">Bằng cách đăng ký, bạn đồng ý với <a class="pDetail">Điều khoản sử dụng</a> và <a class="pDetail">Chính sách về quyền riêng tư</a> của chúng tôi.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

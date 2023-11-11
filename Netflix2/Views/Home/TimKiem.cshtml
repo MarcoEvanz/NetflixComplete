@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Netflix2.Models.Phim>
+<style>
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        margin: 0;
+        text-align: center;
+    }
+    .h2Head {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        margin: 0;
+        text-align: center;
+        margin-top:100px
+    }
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        width: 300px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        outline: none;
+    }
+
+        input[type="text"]::placeholder {
+            color: #ccc;
+        }
+
+    input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #e50914; /* Màu đỏ của Netflix */
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        margin-left: 10px;
+        cursor: pointer;
+        outline: none;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #ff3239; /* Màu đỏ đậm khi di chuột qua */
+        }
+
+    .sidenav {
+        background-color: #333; /* Màu nền đen */
+        color: #fff; /* Màu chữ trắng */
+        padding: 20px;
+        height: 100%; /* Thiết lập chiều cao cố định 100% cho thanh sidenav */
+    }
+
+        .sidenav h4 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .sidenav ul {
+            list-style: none; /* Loại bỏ dấu hiệu danh sách */
+            padding: 0;
+        }
+
+        .sidenav li {
+            margin-bottom: 10px;
+        }
+
+        .sidenav a {
+            color: #fff; /* Màu chữ trắng */
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.2s; /* Hiệu ứng chuyển đổi màu khi di chuột qua */
+        }
+
+            .sidenav a:hover {
+                color: #e50914; /* Màu đỏ của Netflix khi di chuột qua */
+            }
+
+    .active {
+        font-weight: bold; /* Hiển thị thể loại được chọn dưới dạng chữ đậm */
+    }
+</style>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        
+        <div class="col-sm-8 text-left">
+            <br />
+            <h2 class="h2Head">Tìm Kiếm Phim</h2>
+            <div class="search-container">
+                @using (Html.BeginForm("TimKiem", "Home", FormMethod.Get))
+                {
+                    @Html.TextBox("searching", null, new { placeholder = "Tìm kiếm phim..." })
+                    <input type="submit" value="Search" />
+                }
+            </div>
+            <hr />
+            @if (Model.Count() == 0)
+            {
+                <tr colspan="3" style="color:red">
+                    Không có Kết quả
+                </tr>
+            }
+            else
+            {
+                foreach (var phim in Model)
+                {
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="~/Content/PhimIMG/@phim.HinhMinhHoa" alt="Video Image">
+                        </div>
+                        <div class="card-content">
+                            <h2 class="card-title">@phim.TenPhim</h2>
+                            <p class="card-category">@phim.TheLoai</p>
+                        </div>
+                        <button class="card-button">
+                            <a href="@Url.Action("ChiTietPhim", "Home", new { id = phim.IdPhim })">Xem Ngay</a>
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

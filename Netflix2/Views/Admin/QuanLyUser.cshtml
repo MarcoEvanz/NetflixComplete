@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "QuanLyUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model IEnumerable<Netflix2.Models.KhachHang>
+
+<style>
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+    }
+
+    p {
+        margin-bottom: 20px;
+        margin-left: 0px
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th {
+            background-color: #e50914; /* Màu đỏ của Netflix */
+            color: #fff; /* Màu chữ trắng */
+            font-weight: bold;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table td {
+            border: 1px solid #ccc; /* Đường viền màu xám */
+            padding: 10px;
+            color: black
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2; /* Màu nền xám nhạt cho hàng chẵn */
+        }
+
+        .table tr:nth-child(odd) {
+            background-color: #fff; /* Màu nền trắng cho hàng lẻ */
+        }
+
+        .table a {
+            color: #e50914; /* Màu đỏ của Netflix cho liên kết */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+            .table a:hover {
+                text-decoration: underline; /* Hiệu ứng gạch chân khi di chuột qua liên kết */
+            }
+</style>
+
+<div>
+    <h2>Quản Lý Phim</h2>
+    <p>
+        @Html.ActionLink("Thêm User", "AddUser")
+    </p>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HoTenKH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDangNhap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTenKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDangNhap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+            <td>
+                @Html.ActionLink("Edit", "SuaUser", new { id = item.MaKH }) |
+                @Html.ActionLink("Delete", "XoaUser", new { id = item.MaKH })
+            </td>
+        </tr>
+    }
+</table>
+

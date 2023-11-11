@@ -1,0 +1,128 @@
+﻿@model Netflix2.Models.KhachHang
+
+@{
+    ViewBag.Title = "SuaUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    a {
+        color: black
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333; /* Màu chữ đen */
+    }
+
+    .form-horizontal {
+        background-color: #f5f5f5; /* Màu nền xám nhạt */
+        padding: 20px;
+        border: 1px solid #ccc; /* Đường viền màu xám */
+        border-radius: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        color: black;
+    }
+
+    .control-label {
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        background-color: #e50914; /* Màu đỏ của Netflix */
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #ff3239; /* Màu đỏ đậm khi di chuột qua */
+        }
+
+    .text-danger {
+        color: #e50914; /* Màu đỏ của Netflix cho các lỗi */
+    }
+    /* CSS */
+    .back-link {
+        margin-top: 20px;
+    }
+
+        .back-link a {
+            color: #e50914; /* Màu đỏ của Netflix cho liên kết */
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+            .back-link a:hover {
+                text-decoration: underline; /* Hiệu ứng gạch chân khi di chuột qua liên kết */
+            }
+</style>
+@using (Html.BeginForm("LuuUser", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Sửa Thông Tin User</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.MaKH)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HoTenKH, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HoTenKH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HoTenKH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenDangNhap, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="back-link">
+            @Html.ActionLink("Back to List", "QuanLyUser")
+        </div>
+    </div>
+}
