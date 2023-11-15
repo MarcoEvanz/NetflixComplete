@@ -32,13 +32,18 @@ namespace Netflix2.Controllers
                 if (String.IsNullOrEmpty(kh.TenDangNhap))
                     ModelState.AddModelError(String.Empty, "Tên đăng nhập không được để trống");
                 if (String.IsNullOrEmpty(kh.MatKhau))
-                    ModelState.AddModelError(String.Empty, "Mật Khẩu không được để trống");
+                    ModelState.AddModelError(String.Empty, "Mật Khẩu không được để trống");;
                 if (String.IsNullOrEmpty(kh.Email))
                     ModelState.AddModelError(String.Empty, "Email không được để trống");
+                if (kh.MatKhau.Length < 6)
+                    ModelState.AddModelError(string.Empty, "Mật Khẩu không được ít hơn 6 ký tự");
 
-                var khachhang = database.KhachHangs.FirstOrDefault(k => k.TenDangNhap == kh.TenDangNhap);
+                var khachhang = database.KhachHangs.FirstOrDefault(k => k.TenDangNhap== kh.TenDangNhap);
                 if (khachhang != null)
                     ModelState.AddModelError(string.Empty, "Đã có người đăng ký tên này");
+                var khEmail = database.KhachHangs.FirstOrDefault(k => k.Email == kh.Email);
+                if (khEmail != null)
+                    ModelState.AddModelError(string.Empty, "Đã có người đăng ký Email này");
 
                 if (ModelState.IsValid)
                 {

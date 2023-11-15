@@ -18,7 +18,6 @@ namespace Netflix2.Controllers
             using (var dbContext = new XemPhimEntities())
             {
                 var items = dbContext.Phims.ToList();
-
                 return View(items);
             }
         }
