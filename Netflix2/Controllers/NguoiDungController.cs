@@ -44,6 +44,8 @@ namespace Netflix2.Controllers
                 var khEmail = database.KhachHangs.FirstOrDefault(k => k.Email == kh.Email);
                 if (khEmail != null)
                     ModelState.AddModelError(string.Empty, "Đã có người đăng ký Email này");
+                else if (!kh.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+                    ModelState.AddModelError(string.Empty, "Email phải kết thúc bằng @gmail.com");
 
                 if (ModelState.IsValid)
                 {

@@ -1,7 +1,10 @@
 ﻿using Netflix2.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,6 +21,7 @@ namespace Netflix2.Controllers
             using (var dbContext = new XemPhimEntities())
             {
                 var items = dbContext.Phims.ToList();
+
                 return View(items);
             }
         }
@@ -26,15 +30,21 @@ namespace Netflix2.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (String.IsNullOrEmpty(phim.TenPhim))
-                    ModelState.AddModelError(String.Empty, "Tên Phim không được để trống");
+                if (String.IsNullOrEmpty(phim.TenPhim) || phim.TenPhim.Length < 1 || phim.TenPhim.Length > 50)
+                    ModelState.AddModelError(String.Empty, "Tên Phim không được để trống và phải có ít nhất 1 ký tự, không quá 50 ký tự");
                 if (String.IsNullOrEmpty(phim.URLPhim))
                     ModelState.AddModelError(String.Empty, "Url không được để trống");
                 if (String.IsNullOrEmpty(phim.HinhMinhHoa))
                     ModelState.AddModelError(String.Empty, "Hình minh họa không được để trống");
                 if (String.IsNullOrEmpty(phim.ThoiLuong))
-                    ModelState.AddModelError(String.Empty, "Thời Lượng không được để trống");
-
+                    ModelState.AddModelError(String.Empty, "Thời lượng không được để trống");         
+                else
+                {
+                    if (!TimeSpan.TryParse(phim.ThoiLuong, out _))
+                    {
+                        ModelState.AddModelError("ThoiLuong", "Thời Lượng không hợp lệ. Hãy nhập giá trị kiểu thời gian đúng.");
+                    }
+                }
                 if (ModelState.IsValid)
                 {
                     database.Phims.Add(phim);
@@ -104,35 +114,72 @@ namespace Netflix2.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (String.IsNullOrEmpty(khachHang.TenDangNhap))
-                    ModelState.AddModelError(String.Empty, "Tên Đăng Nhập không được để trống");
-                if (String.IsNullOrEmpty(khachHang.HoTenKH))
-                    ModelState.AddModelError(String.Empty, "Họ Và Tên không được để trống");
+                var existingEmail = database.KhachHangs.FirstOrDefault(k => k.Email == khachHang.Email);
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError(String.Empty, "Địa chỉ Email đã được sử dụng, vui lòng chọn địa chỉ Email khác.");
+                }
+                if (String.IsNullOrEmpty(khachHang.TenDangNhap) || khachHang.TenDangNhap.Length < 1 || !Regex.IsMatch(khachHang.TenDangNhap, "^[a-zA-Z0-9 ]*$"))
+                {
+                    ModelState.AddModelError(String.Empty, "Tên Đăng Nhập không hợp lệ");
+                }
+
+                if (String.IsNullOrEmpty(khachHang.HoTenKH) || khachHang.HoTenKH.Length < 1 || !Regex.IsMatch(khachHang.HoTenKH, "^[a-zA-Z0-9 ]*$"))
+                {
+                    ModelState.AddModelError(String.Empty, "Họ Và Tên không hợp lệ");
+                }
+
+                if (String.IsNullOrEmpty(khachHang.Email) || !Regex.IsMatch(khachHang.Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    ModelState.AddModelError(String.Empty, "Email không hợp lệ");
+                }
+
                 if (String.IsNullOrEmpty(khachHang.MatKhau))
+                {
                     ModelState.AddModelError(String.Empty, "Mật Khẩu không được để trống");
-                if (String.IsNullOrEmpty(khachHang.Email))
-                    ModelState.AddModelError(String.Empty, "Email không được để trống");
+                }
 
                 if (ModelState.IsValid)
                 {
                     database.KhachHangs.Add(khachHang);
                     database.SaveChanges();
-                }
-                else
-                {
-                    return View();
+                    return RedirectToAction("QuanLyUser");
                 }
             }
-            return RedirectToAction("QuanLyUser");
+
+            // Nếu ModelState không hợp lệ, quay lại view để hiển thị lỗi
+            return View();
         }
         public ActionResult SuaUser(int Id)
         {
             XemPhimEntities database = new XemPhimEntities();
             KhachHang e = database.KhachHangs.Where(i => i.MaKH == Id).FirstOrDefault();
 
+            if (e != null)
+            {
+                // Kiểm tra hợp lệ cho email, họ tên và tên đăng nhập
+                if (String.IsNullOrEmpty(e.TenDangNhap) || e.TenDangNhap.Length < 1 || !Regex.IsMatch(e.TenDangNhap, "^[a-zA-Z0-9 ]*$"))
+                {
+                    ModelState.AddModelError(String.Empty, "Tên Đăng Nhập không hợp lệ");
+                }
+
+                if (String.IsNullOrEmpty(e.HoTenKH) || e.HoTenKH.Length < 1 || !Regex.IsMatch(e.HoTenKH, "^[a-zA-Z0-9 ]*$"))
+                {
+                    ModelState.AddModelError(String.Empty, "Họ Và Tên không hợp lệ");
+                }
+
+                if (String.IsNullOrEmpty(e.Email) || !e.Email.EndsWith("@gmail.com", StringComparison.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError(String.Empty, "Email không hợp lệ. Vui lòng nhập lại email");
+                }
+
+                return View(e);
+            }
+
             database.Dispose();
-            return View(e);
+            return RedirectToAction("QuanLyUser");
         }
+
         public ActionResult LuuUser(KhachHang s)
         {
             XemPhimEntities database = new XemPhimEntities();
