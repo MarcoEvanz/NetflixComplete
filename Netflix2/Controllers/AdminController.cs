@@ -124,7 +124,7 @@ namespace Netflix2.Controllers
                     ModelState.AddModelError(String.Empty, "Tên Đăng Nhập không hợp lệ");
                 }
 
-                if (String.IsNullOrEmpty(khachHang.HoTenKH) || khachHang.HoTenKH.Length < 1 || !Regex.IsMatch(khachHang.HoTenKH, "^[a-zA-Z0-9 ]*$"))
+                if (String.IsNullOrEmpty(khachHang.HoTenKH) || khachHang.HoTenKH.Length < 1 )
                 {
                     ModelState.AddModelError(String.Empty, "Họ Và Tên không hợp lệ");
                 }
@@ -163,7 +163,7 @@ namespace Netflix2.Controllers
                     ModelState.AddModelError(String.Empty, "Tên Đăng Nhập không hợp lệ");
                 }
 
-                if (String.IsNullOrEmpty(e.HoTenKH) || e.HoTenKH.Length < 1 || !Regex.IsMatch(e.HoTenKH, "^[a-zA-Z0-9 ]*$"))
+                if (String.IsNullOrEmpty(e.HoTenKH) || e.HoTenKH.Length < 1)
                 {
                     ModelState.AddModelError(String.Empty, "Họ Và Tên không hợp lệ");
                 }
