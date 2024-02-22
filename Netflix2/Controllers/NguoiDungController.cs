@@ -78,7 +78,7 @@ namespace Netflix2.Controllers
                         ViewBag.Thongbao = "Chúc mừng đăng nhập thành công";
 
                         Session["TaiKhoan"] = khach.TenDangNhap;
-                        // Dừng chương trình trong 3 giây
+                        // Dừng chương trình trong 3 giây.
                         Thread.Sleep(3000);
 
                         // Chuyển hướng đến trang chủ
